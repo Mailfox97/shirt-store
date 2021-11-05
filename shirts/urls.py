@@ -46,7 +46,7 @@ urlpatterns = [
     path('updateprofile/', views.updateprofile, name='updateprofile'),
     # path('profile/<str:username>', views.profile, name='profile'),
     path('profile/', views.profile, name='profile'),
-    path('validate_payment/', views.validate_payment, name='validate_payment'),
+    # path('validate_payment/', views.validate_payment, name='validate_payment'),
 
 
 

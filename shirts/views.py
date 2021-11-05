@@ -14,7 +14,7 @@ from django.contrib.auth.models import User
 from store.settings import API_KEY, AUTH_TOKEN
 from instamojo_wrapper import Instamojo
 
-API = Instamojo(api_key=API_KEY, auth_token=AUTH_TOKEN, endpoint='https://test.instamojo.com/api/1.1/');
+# API = Instamojo(api_key=API_KEY, auth_token=AUTH_TOKEN, endpoint='https://test.instamojo.com/api/1.1/');
 
 
 # Create your views here.
@@ -362,38 +362,38 @@ def checkout(request):
             return redirect('checkout')
 
 
-def validate_payment(request):
-    user = None
-    if request.user.is_authenticated:
-        user = request.user
-    payment_request_id = request.GET.get('payment_request_id')
-    payment_id = request.GET.get('payment_id')
-    print(payment_request_id, payment_id)
-    response = API.payment_request_payment_status(payment_request_id, payment_id)
-    print(response)
-    status = response.get('payment_request').get('payment').get('status')
-    print(status)
-
-    if status != "Failed":
-        print('Payment Success')
-        try:
-            payments = Payment.objects.get(payment_request_id=payment_request_id)
-            payments.payment_id = payment_id
-            payments.payment_status = status
-            payments.save()
-
-            finalorders = payments.Order
-            finalorders.order_status = 'PLACED'
-            finalorders.save()
-            cart = []
-            request.session['cart'] = cart
-            Cart.objects.filter(user=user).delete()
-        except:
-            return render(request, 'payment_failed.html')
-
-    else:
-        return render(request, 'payment_failed.html')
-    return redirect(orders)
+# def validate_payment(request):
+#     user = None
+#     if request.user.is_authenticated:
+#         user = request.user
+#     payment_request_id = request.GET.get('payment_request_id')
+#     payment_id = request.GET.get('payment_id')
+#     print(payment_request_id, payment_id)
+#     response = API.payment_request_payment_status(payment_request_id, payment_id)
+#     print(response)
+#     status = response.get('payment_request').get('payment').get('status')
+#     print(status)
+#
+#     if status != "Failed":
+#         print('Payment Success')
+#         try:
+#             payments = Payment.objects.get(payment_request_id=payment_request_id)
+#             payments.payment_id = payment_id
+#             payments.payment_status = status
+#             payments.save()
+#
+#             finalorders = payments.Order
+#             finalorders.order_status = 'PLACED'
+#             finalorders.save()
+#             cart = []
+#             request.session['cart'] = cart
+#             Cart.objects.filter(user=user).delete()
+#         except:
+#             return render(request, 'payment_failed.html')
+#
+#     else:
+#         return render(request, 'payment_failed.html')
+#     return redirect(orders)
 
 
 @login_required
