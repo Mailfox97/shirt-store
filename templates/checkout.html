@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}
+Checkout
+{% endblock title %}
+{% load static %}
+{% block body %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load custom_tags %}
+<div class="page-content">
+
+<section class="checkout-page">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 col-md-12">
+        <div class="checkout-form box-shadow white-bg">
+          <h4 class="mb-4 font-w-6">Billing Details</h4>
+          <form action="/checkout/" method='post'>
+          {% csrf_token %}
+          {{form|crispy}}
+          <input class="btn btn-primary btn-sm px-4" type="submit" value="Checkout">
+          </form>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12 mt-5 mt-lg-0">
+        <div class="border bg-light-4 p-3 p-lg-5">
+        <div class="mb-7">
+          <h6 class="mb-3 font-w-6">Your Order</h6>
+          <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Size</th>
+      <th scope="col">Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i in cart %}
+    <tr>
+      {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}
+      <td>{{i.size.tshirt.name}}</td>
+      <td>{{i.size.quantity}}</td>
+      <td>{{i.size.size}}</td>
+      <td>Rs. {% sale_price i.size.price i.size.tshirt.discount as total_sale_price %} {% multiply total_sale_price i.size.quantity %}</td>
+    </tr>
+      {% endfor %}
+  </tbody>
+</table>
+        <div class="mb-7">
+          <h6 class="mb-3 font-w-6">Your Total Payable Amount</h6>
+<h6>Rs. {{cart|cart_total_price}}</h6>
+</div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+{% endblock body %}
