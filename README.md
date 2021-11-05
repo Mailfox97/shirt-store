@@ -1,1 +1,1 @@
-#  A E-commerce student project
+#  E-commerce student project
