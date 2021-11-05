@@ -11,7 +11,7 @@ from django.http import request
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
-from store.settings import API_KEY, AUTH_TOKEN
+# from store.settings import API_KEY, AUTH_TOKEN
 from instamojo_wrapper import Instamojo
 
 # API = Instamojo(api_key=API_KEY, auth_token=AUTH_TOKEN, endpoint='https://test.instamojo.com/api/1.1/');
