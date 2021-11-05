@@ -262,104 +262,104 @@ def cart_total_price(cart):  # for cart total price
     return total
 
 
-@login_required(login_url='/userlogin/')
-def checkout(request):
-    if request.method == 'GET':
-        form = CheckoutForm()
-        cart = request.session.get('cart')
-        if cart is None:
-            cart = []
-
-        for c in cart:
-            size_str = c.get('size')
-            tshirt_id = c.get('tshirt')
-            quantity = c.get('quantity')
-            size_obj = Sizevariant.objects.get(size=size_str, tshirt=tshirt_id)
-            c['size'] = size_obj
-            size_obj.quantity = quantity
-            c['tshirt'] = size_obj.tshirt
-        return render(request, 'checkout.html', {'form': form, 'cart': cart})
-    else:
-        # Post request
-        form = CheckoutForm(request.POST)
-        # This is for capture the current user
-        user = None
-        if request.user.is_authenticated:
-            user = request.user
-
-        if form.is_valid():
-            # if form is correct then we go for payment
-            cart = request.session.get('cart')
-            if cart is None:
-                cart = []
-            for c in cart:
-                size_str = c.get('size')
-                tshirt_id = c.get('tshirt')
-                quantity = c.get('quantity')
-                size_obj = Sizevariant.objects.get(size=size_str, tshirt=tshirt_id)
-                c['size'] = size_obj
-                size_obj.quantity = quantity
-                c['tshirt'] = size_obj.tshirt
-
-            address = form.cleaned_data.get('shipping_address')
-            phone = form.cleaned_data.get('phone')
-            payment_method = form.cleaned_data.get('payment_method')
-            total = cart_total_price(cart)
-            # print(address, phone, payment_method, total)
-            # Now create order and save order
-            orders = order()
-            orders.shipping_address = address
-            orders.phone = phone
-            orders.payment_method = payment_method
-            orders.total = total
-            orders.order_status = "PENDING"
-            orders.user = user
-            orders.save()
-
-            # Now saving the order items in the database
-            for c in cart:
-                order_items = order_item()
-                order_items.Order = orders  # mtlb kis order ka order_item hai ye
-                size = c.get('size')
-                tshirt = c.get('tshirt')
-                order_items.price = floor(size.price - (size.price * (tshirt.discount / 100)))
-                order_items.quantity = c.get('quantity')
-                order_items.size = size
-                order_items.tshirt = tshirt
-                order_items.save()
-
-            if payment_method == 'ONLINE':
-
-                # Create a new Payment Request
-                response = API.payment_request_create(
-                    amount=orders.total,
-                    purpose="Payment For Tshirts",
-                    send_email=True,
-                    buyer_name=f'{user.first_name} {user.last_name}',
-                    email=user.email,
-                    redirect_url="http://localhost:8000/validate_payment"
-                )
-
-                print(response['payment_request'])
-                payment_request_id = response['payment_request']['id']
-                url = response['payment_request']['longurl']
-
-                payments = Payment()
-                payments.Order = orders
-                payments.payment_request_id = payment_request_id
-                payments.save()
-                return redirect(url)  # this url comes from the long url
-
-            else:
-                finalorders = orders
-                finalorders.order_status = 'PLACED'
-                finalorders.save()
-                cart = []
-                request.session['cart'] = cart
-                Cart.objects.filter(user=user).delete()
-                return redirect('orders')
-        else:
-            return redirect('checkout')
+# @login_required(login_url='/userlogin/')
+# def checkout(request):
+#     if request.method == 'GET':
+#         form = CheckoutForm()
+#         cart = request.session.get('cart')
+#         if cart is None:
+#             cart = []
+#
+#         for c in cart:
+#             size_str = c.get('size')
+#             tshirt_id = c.get('tshirt')
+#             quantity = c.get('quantity')
+#             size_obj = Sizevariant.objects.get(size=size_str, tshirt=tshirt_id)
+#             c['size'] = size_obj
+#             size_obj.quantity = quantity
+#             c['tshirt'] = size_obj.tshirt
+#         return render(request, 'checkout.html', {'form': form, 'cart': cart})
+#     else:
+#         # Post request
+#         form = CheckoutForm(request.POST)
+#         # This is for capture the current user
+#         user = None
+#         if request.user.is_authenticated:
+#             user = request.user
+#
+#         if form.is_valid():
+#             # if form is correct then we go for payment
+#             cart = request.session.get('cart')
+#             if cart is None:
+#                 cart = []
+#             for c in cart:
+#                 size_str = c.get('size')
+#                 tshirt_id = c.get('tshirt')
+#                 quantity = c.get('quantity')
+#                 size_obj = Sizevariant.objects.get(size=size_str, tshirt=tshirt_id)
+#                 c['size'] = size_obj
+#                 size_obj.quantity = quantity
+#                 c['tshirt'] = size_obj.tshirt
+#
+#             address = form.cleaned_data.get('shipping_address')
+#             phone = form.cleaned_data.get('phone')
+#             payment_method = form.cleaned_data.get('payment_method')
+#             total = cart_total_price(cart)
+#             # print(address, phone, payment_method, total)
+#             # Now create order and save order
+#             orders = order()
+#             orders.shipping_address = address
+#             orders.phone = phone
+#             orders.payment_method = payment_method
+#             orders.total = total
+#             orders.order_status = "PENDING"
+#             orders.user = user
+#             orders.save()
+#
+#             # Now saving the order items in the database
+#             for c in cart:
+#                 order_items = order_item()
+#                 order_items.Order = orders  # mtlb kis order ka order_item hai ye
+#                 size = c.get('size')
+#                 tshirt = c.get('tshirt')
+#                 order_items.price = floor(size.price - (size.price * (tshirt.discount / 100)))
+#                 order_items.quantity = c.get('quantity')
+#                 order_items.size = size
+#                 order_items.tshirt = tshirt
+#                 order_items.save()
+#
+#             if payment_method == 'ONLINE':
+#
+#                 # Create a new Payment Request
+#                 response = API.payment_request_create(
+#                     amount=orders.total,
+#                     purpose="Payment For Tshirts",
+#                     send_email=True,
+#                     buyer_name=f'{user.first_name} {user.last_name}',
+#                     email=user.email,
+#                     redirect_url="http://localhost:8000/validate_payment"
+#                 )
+#
+#                 print(response['payment_request'])
+#                 payment_request_id = response['payment_request']['id']
+#                 url = response['payment_request']['longurl']
+#
+#                 payments = Payment()
+#                 payments.Order = orders
+#                 payments.payment_request_id = payment_request_id
+#                 payments.save()
+#                 return redirect(url)  # this url comes from the long url
+#
+#             else:
+#                 finalorders = orders
+#                 finalorders.order_status = 'PLACED'
+#                 finalorders.save()
+#                 cart = []
+#                 request.session['cart'] = cart
+#                 Cart.objects.filter(user=user).delete()
+#                 return redirect('orders')
+#         else:
+#             return redirect('checkout')
 
 
 # def validate_payment(request):
