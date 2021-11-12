@@ -86,8 +86,15 @@ class Cart(models.Model):
 
     def __str__(self):
         return self.name
+
+    def update_quantity(self, quantity):
+        self.quantity = self.quantity + quantity
+        self.save()
+
+    # def total_cost(self):
+    #     return self.quantity * self.price
     
-class order(models.Model):
+class Order(models.Model):
     orderStatus = (
         ('PENDING', "Pending"),
         ('PLACED', "Your Order Is Placed"),
@@ -97,35 +104,42 @@ class order(models.Model):
     )
     method = (
         ('COD', "Cod"),
-        ('ONLINE', "Online"),
+        ('PAYPAL', "Paypal"),
     )
     order_status = models.CharField(max_length=15, choices=orderStatus)
     payment_method = models.CharField(max_length=15, choices=method)
     shipping_address = models.CharField(max_length=150, null = False)
-    phone = models.CharField(max_length=10, null = False)
+    phone = models.CharField(max_length=10, null=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     total = models.IntegerField(null=False)
     date = models.DateTimeField(null=False, auto_now_add=True)
 
     def __str__(self):
         return self.order_status
+    # def __str__(self):
+    #     return "{}:{}".format(self.id, self.user)
 
 
-
-class order_item(models.Model):
-    Order = models.ForeignKey(order, on_delete=models.CASCADE)
+class OrderItem(models.Model):
+    Order = models.ForeignKey(Order, on_delete=models.CASCADE)
     tshirt = models.ForeignKey(Tshirt, on_delete=models.CASCADE)
     size = models.ForeignKey(Sizevariant, on_delete=models.CASCADE)
     quantity = models.IntegerField(null=False)
     price = models.IntegerField(null=False)
     date = models.DateTimeField(null=False, auto_now_add=True)
 
-class Payment(models.Model):
-    Order = models.ForeignKey(order, on_delete=models.CASCADE)
-    payment_status = models.CharField(max_length=15, default='FAILED')
-    date = models.DateTimeField(null=False, auto_now_add=True)
-    payment_id = models.CharField(max_length=70)
-    payment_request_id = models.CharField(max_length=70, unique=True, null = False)
+    def __str__(self):
+        return "{}:{}".format(self.tshirt.name, self.id)
+
+    def cost(self):
+        return self.price * self.quantity
+
+# class Payment(models.Model):
+#     Order = models.ForeignKey(order, on_delete=models.CASCADE)
+#     payment_status = models.CharField(max_length=15, default='FAILED')
+#     date = models.DateTimeField(null=False, auto_now_add=True)
+#     payment_id = models.CharField(max_length=70)
+#     payment_request_id = models.CharField(max_length=70, unique=True, null = False)
 
 
 

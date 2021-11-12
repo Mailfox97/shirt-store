@@ -47,7 +47,7 @@ class Adminloginform(AuthenticationForm):
 
 class CheckoutForm(forms.ModelForm):
     class Meta:
-        model = order
+        model = Order
         fields = ['shipping_address', 'phone', 'payment_method']
 
 

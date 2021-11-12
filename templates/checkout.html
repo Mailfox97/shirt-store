@@ -42,14 +42,14 @@ Checkout
       <td>{{i.size.tshirt.name}}</td>
       <td>{{i.size.quantity}}</td>
       <td>{{i.size.size}}</td>
-      <td>Rs. {% sale_price i.size.price i.size.tshirt.discount as total_sale_price %} {% multiply total_sale_price i.size.quantity %}</td>
+      <td>${% sale_price i.size.price i.size.tshirt.discount as total_sale_price %} {% multiply total_sale_price i.size.quantity %}</td>
     </tr>
       {% endfor %}
   </tbody>
 </table>
         <div class="mb-7">
           <h6 class="mb-3 font-w-6">Your Total Payable Amount</h6>
-<h6>Rs. {{cart|cart_total_price}}</h6>
+<h6>${{cart|cart_total_price}}</h6>
 </div>
         </div>
         </div>

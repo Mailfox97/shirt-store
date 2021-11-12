@@ -8,7 +8,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     
     #Error handlers
-    path('handler404/', views.handler404),
+    # path('handler404/', views.handler404),
     path('handler500/', views.handler500),
 
 
@@ -31,7 +31,7 @@ urlpatterns = [
     
     
     #Cart
-    # path('checkout/', views.checkout, name='checkout'),
+    path('checkout/', views.checkout, name='checkout'),
     path('cart/', views.cart, name='cart_detail'),    
     path('cart/<str:slug>/<str:size>', views.addtocart, name='cart'),
     
@@ -46,7 +46,9 @@ urlpatterns = [
     path('updateprofile/', views.updateprofile, name='updateprofile'),
     # path('profile/<str:username>', views.profile, name='profile'),
     path('profile/', views.profile, name='profile'),
-    # path('validate_payment/', views.validate_payment, name='validate_payment'),
+    # path('process_payment/', views.process_payment, name='process_payment'),
+    # path('payment-done/', views.payment_done, name='payment_done'),
+    path('payment-failed/', views.payment_failed, name='payment_failed'),
 
 
 

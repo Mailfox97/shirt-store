@@ -65,11 +65,11 @@ Cart
                 </td>
                 <td> <span class="product-price">{{i.size.size}}</span>
                 </td>
-                <td> <span class="product-price text-muted">Rs. {{i.size.price}}</span>
+                <td> <span class="product-price text-muted">${{i.size.price}}</span>
                 </td>
                 <td> <span class="product-price text-red">{{i.tshirt.discount}}%</span>
                 </td>
-                <td> <span class="product-price">Rs. {% sale_price i.size.price i.tshirt.discount as total_sale_price %} {{total_sale_price}}</span>
+                <td> <span class="product-price">${% sale_price i.size.price i.tshirt.discount as total_sale_price %}{{total_sale_price}}</span>
                 </td>
                 <td>
                   <div class="d-flex align-items-center">
@@ -82,7 +82,7 @@ Cart
                     </button>
                   </div>
                 </td>
-                <td> <span class="product-price text-primary font-w-6">Rs. {% multiply total_sale_price i.quantity %}</span>
+                <td> <span class="product-price text-primary font-w-6">${% multiply total_sale_price i.quantity %}</span>
                   <a href="#" class="close-link"><i class="las la-times"></i></a>
                 </td>
               </tr>    
@@ -95,7 +95,7 @@ Cart
       <div class="col-lg-12 pl-lg-12 mt-8 mt-lg-0">
         <div class="border rounded p-5 bg-light-4">
           <h4 class="text-black text-left mb-2 font-w-6">Cart Totals</h4>
-          <div class="d-flex justify-content-between align-items-center pt-3 mb-5"> <span class="text-dark h5">Total</span>  <span class="text-dark font-w-6 h5">Rs. {{cart|cart_total_price}}</span> 
+          <div class="d-flex justify-content-between align-items-center pt-3 mb-5"> <span class="text-dark h5">Total</span>  <span class="text-dark font-w-6 h5">${{cart|cart_total_price}}</span>
           </div> <a class="btn btn-primary btn-animated btn-block" href="{% url 'checkout' %}">Proceed To Checkout</a>
           <a class="btn btn-dark btn-animated mt-3 btn-block" href="#">Continue Shopping</a>
         </div>
@@ -121,4 +121,3 @@ Cart
 {% endblock body %}
 
 
- 
