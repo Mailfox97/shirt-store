@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '@h($ndf(x)q&z3mn8z_7mrffm30c9inb6d_b^wcj(ilnla#!_+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'shirts',
     'crispy_forms',
     'widget_tweaks',
+    'paypal.standard.ipn',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
@@ -55,6 +56,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'store.urls'
+SESSION_COOKIE_SAMESITE = 'None'
 
 TEMPLATES = [
     {
@@ -136,5 +138,5 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
 
-# API_KEY = 'Your API KEY'
-# AUTH_TOKEN = 'Your AUTH_TOKEN'
+PAYPAL_RECEIVER_EMAIL = 'sb-qexsc8298683@business.example.com'
+PAYPAL_TEST = True
