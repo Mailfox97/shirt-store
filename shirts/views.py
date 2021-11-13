@@ -334,7 +334,9 @@ def checkout(request):
                 order_items.save()
 
             if payment_method == 'PAYPAL':
-
+                cart = []
+                request.session['cart'] = cart
+                Cart.objects.filter(user=user).delete()
                 host = request.get_host()
                 paypal_dict = {
                     'business': PAYPAL_RECEIVER_EMAIL,

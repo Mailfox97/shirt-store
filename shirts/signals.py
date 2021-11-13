@@ -23,4 +23,3 @@ def complete_order(sender, **kwargs):
         finalorders = order
         finalorders.order_status = 'PLACED'
         finalorders.save()
-        Cart.objects.filter(user=user).delete()
