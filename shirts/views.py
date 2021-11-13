@@ -131,7 +131,7 @@ def add_cart_to_database(user, size, tshirt):
         obj.save()
 
     else:
-        c = Cart()  # Cart object is creating here 
+        c = Cart()  # Cart object is creating here
         c.sizevariant = size  # here we are getting the size of the tshirt
         c.user = user
         c.quantity = 1
@@ -256,8 +256,8 @@ def contact(request):
 def cart_total_price(cart):  # for cart total price
     total = 0
     for c in cart:
-        # tshirt_object = Tshirt.objects.get(id=c.get('tshirt')) 
-        # size_object = Sizevariant.objects.get(size=c.get('size'), tshirt = tshirt_object) 
+        # tshirt_object = Tshirt.objects.get(id=c.get('tshirt'))
+        # size_object = Sizevariant.objects.get(size=c.get('size'), tshirt = tshirt_object)
         discount = c.get('tshirt').discount
         price = c.get('size').price
         final_price = floor(price - (price * (discount / 100)))
@@ -342,14 +342,14 @@ def checkout(request):
                     'item_name': 'Order {}'.format(orders.id),
                     'invoice': str(orders.id),
                     'currency_code': 'USD',
+                    'custom': user.id,
                     'notify_url': 'http://{}{}'.format(host,
                                                        reverse('paypal-ipn')),
                     'return_url': 'http://{}{}'.format(host,
                                                        reverse('orders')),
                     'cancel_return': 'http://{}{}'.format(host,
                                                           reverse('payment_failed')),
-                    'custom_order': orders.id,
-                    'custom_user': user.id,
+
 
                 }
                 print(paypal_dict)

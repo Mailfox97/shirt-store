@@ -6,6 +6,7 @@ from django.dispatch import receiver
 
 @receiver(valid_ipn_received)
 def complete_order(sender, **kwargs):
+    print("complete order>>>");
     """
     Receiver function for successful payment.
     Calls when PayPal returns success.
@@ -13,8 +14,8 @@ def complete_order(sender, **kwargs):
     ipn_obj = sender
     if ipn_obj.payment_status == ST_PP_COMPLETED:
         user = None
-        user_id = ipn_obj.custom_user
-        order_id = ipn_obj.custom_id
+        user_id = ipn_obj.custom
+        order_id = int(ipn_obj.invoice)
         # Get the order :D
         order = get_object_or_404(Order, id=order_id)
         user = get_object_or_404(User, id=user_id)
