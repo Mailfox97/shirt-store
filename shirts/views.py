@@ -37,7 +37,7 @@ def home(request):
 
 
 
-def allprod(request):
+def products(request):
     query = request.GET
     products = []
     products = Tshirt.objects.all()
@@ -101,6 +101,7 @@ def product_detail(request, slug):
 
 
 def addtocart(request, size, slug):
+    print("add to cart>>>", size, slug)
     user = None
     if request.user.is_authenticated:
         user = request.user
@@ -154,6 +155,28 @@ def add_cart_for_anom_user(cart, size, tshirt):
             'quantity': 1,
         }
         cart.append(cart_obj)
+
+
+# def remove_from_cart(request, id):
+#     print("remove from cart>>>", id)
+#     user = None
+#     if request.user.is_authenticated:
+#         user = request.user
+#     cart = request.session.get('cart')
+#     if cart is None:
+#         cart = []
+#
+#     Cart.objects.filter(id=id, user=user).delete()
+#
+#     request.session['cart'] = cart
+#
+#     return_url = request.GET.get('return_url')
+#     return redirect(return_url)
+
+
+# @login_required
+# def remove_single_item_from_cart(user, size, tshirt):
+
 
 
 def cart(request):
@@ -375,23 +398,6 @@ def checkout(request):
 
 
 
-# @csrf_exempt
-# def payment_done(request):
-#     print("payment done >>>")
-#     # This is for capture the current user
-#     user = None
-#     if request.user.is_authenticated:
-#         user = request.user
-#     order_id = request.session.get('order_id')
-#     order = get_object_or_404(Order, id=order_id)
-#     finalorders = order
-#     finalorders.order_status = 'PLACED'
-#     finalorders.save()
-#     cart = []
-#     request.session['cart'] = cart
-#     Cart.objects.filter(user=user).delete()
-#
-#     return redirect('orders')
 
 @csrf_exempt
 def payment_failed(request):

@@ -14,7 +14,7 @@ urlpatterns = [
 
     path('contact/', views.contact, name='contact'),
     path('orders/', views.orders, name='orders'),
-    path('allprod/', views.allprod, name='all_prod'),
+    path('products/', views.products, name='products'),
     
     #Custom Admin
     path('admin_login/', views.admin_login, name='admin_login'),
@@ -33,7 +33,8 @@ urlpatterns = [
     #Cart
     path('checkout/', views.checkout, name='checkout'),
     path('cart/', views.cart, name='cart_detail'),    
-    path('cart/<str:slug>/<str:size>', views.addtocart, name='cart'),
+    path('add_to_cart/<str:slug>/<str:size>', views.addtocart, name='add_to_cart'),
+    # path('cart/<int:id>', views.remove_from_cart, name='remove_from_cart'),
     
     #product detail
     path('product/<slug:slug>/', views.product_detail, name='product_detail'),

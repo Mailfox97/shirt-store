@@ -13,8 +13,7 @@
       <div class="col-md-6 mt-3 mt-md-0">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb justify-content-md-end bg-transparent p-0 m-0">
-            <li class="breadcrumb-item"><a class="link-title" href="#">Home</a> </li>
-            <li class="breadcrumb-item"><a class="link-title" href="#">Shop</a></li>
+            <li class="breadcrumb-item"><a class="link-title" href="/">Home</a> </li>
             <li class="breadcrumb-item active text-primary" aria-current="page">{{details.name|title}}</li>
           </ol>
         </nav>
@@ -80,7 +79,7 @@
             </div>
           </div>
           <div class="d-sm-flex align-items-center mt-5">
-            <a href="{% url 'cart' details.slug active_size.size %}?return_url={{request.get_full_path}}" class="btn btn-primary btn-animated mr-sm-3 mb-3 mb-sm-0"><i class="las la-shopping-cart mr-2"></i>Add To Cart</a>
+            <a href="{% url 'add_to_cart' details.slug active_size.size %}?return_url={{request.get_full_path}}" class="btn btn-primary btn-animated mr-sm-3 mb-3 mb-sm-0"><i class="las la-shopping-cart mr-2"></i>Add To Cart</a>
             <a class="btn btn-animated btn-dark" href=""> <i class="lar la-heart mr-2 ic-1-2x"></i>Add To Wishlist
             </a>
           </div>
