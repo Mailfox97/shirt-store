@@ -43,14 +43,23 @@ All Products
         {% for i in prod %}
           <div class="col-lg-4 col-md-6 mb-5">
             <div class="card product-card card--default rounded-0">
+                        {% if i.discount > 0 %}
                         <div class="sale-label">{{i.discount}}%</div>
+                        {% else %}
+                        {% endif %}
                         <a class="card-img-hover d-block" href="{% url 'product_detail' i.slug %}"> <img class="card-img-back" src="{{i.image1.url}}" alt="..."> <img class="card-img-front" src="{{i.image2.url}}" alt="..."> </a>
                         <div class="card-info">
                           <div class="card-body">
                             <div class="product-title font-w-5"><a class="link-title" href="{% url 'product_detail' i.slug %}">{{i.name|title}}</a> </div>
+                            {% if i.discount > 0 %}
                             <div class="mt-1"> <span class="product-price text-pink"><del class="text-muted">${% prices i %}</del>${% discount i %}</span>
                               <div class="star-rating"><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i> </div>
                             </div>
+                            {% else %}
+                            <div class="mt-1"> <span class="product-price text-pink">${% discount i %}</span>
+                              <div class="star-rating"><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i> </div>
+                            </div>
+                            {% endif %}
                           </div>
                           <div class="card-footer bg-transparent border-0">
                           </div>

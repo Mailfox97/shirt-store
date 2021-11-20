@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '@h($ndf(x)q&z3mn8z_7mrffm30c9inb6d_b^wcj(ilnla#!_+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'widget_tweaks',
     'paypal.standard.ipn',
+    'django_social_share',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
@@ -56,7 +57,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'store.urls'
-SESSION_COOKIE_SAMESITE = 'None'
+# SESSION_COOKIE_SAMESITE = 'None'
 
 TEMPLATES = [
     {

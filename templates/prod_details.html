@@ -1,9 +1,28 @@
 {% extends 'base.html' %}
+{% block extra_meta_tag %}
+<!-- meta tags -->
+<meta property="og:site_name" content="">
+<meta property="og:title" content="{{details.name|title}}">
+<meta property="og:type" content="ecommerce" />
+<meta property="og:description" content="{{details.desc}}">
+<meta property="og:image" content="https://hcmuecommerce.pythonanywhere.com{{details.image1.url}}">
+<meta property="og:url" content="https://hcmuecommerce.pythonanywhere.com{{ request.get_full_path }}">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta charset="utf-8">
+<meta name="keywords" content="hcmue, ecommerce" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% endblock extra_meta_tag %}
 {% block title %}
 {{details.name|title}}
 {% endblock title %}
+
+
+
 {% block body %}
 {% load custom_tags %}
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v12.0" nonce="n0YTPRKS"></script>
+
 <section class="bg-light py-6">
   <div class="container">
     <div class="row align-items-center">
@@ -52,19 +71,36 @@
           </li>
 
         </ul>
+
+
       </div>
+
+
       <div class="col-lg-6 col-12 mt-5 mt-lg-0">
         <div class="product-details">
           <h1 class="h4 mb-0 font-w-6">{{details.name|title}}</h1>
           <div class="star-rating mb-4"><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i>
+          {% if sell_price == price %}
+          </div> <span class="product-price h5 text-pink">${{sell_price}}</span>
+          {% else %}
           </div> <span class="product-price h5 text-pink">${{sell_price}} <del class="text-muted h6">${{price}}</del></span>
+          {% endif %}
           <ul class="list-unstyled my-3">
+            <li>
+              <div class="fb-share-button" data-href="https://hcmuecommerce.pythonanywhere.com{{ request.get_full_path }}" data-layout="button" data-size="small">
+                  <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Chia sẻ</a>
+              </div>
+            </li>
+              {% if details.discount > 0 %}
             <li><small>Discount: <span class="text-red"> <strong> {{details.discount}}%</strong></span> </small>
             </li>
+              {% else %}
+              {% endif %}
             <li><small>Availibility: <span class="text-green"> In Stock</span> </small>
             </li>
             <li class="font-w-4"><small>Categories :<span class="text-muted"> {{details.category}}</span></small>
             </li>
+
           </ul>
           <p class="mb-4 desc">{{details.desc}}</p>
           <div class="d-sm-flex align-items-center mb-5">
@@ -83,6 +119,7 @@
             <a class="btn btn-animated btn-dark" href=""> <i class="lar la-heart mr-2 ic-1-2x"></i>Add To Wishlist
             </a>
           </div>
+
           
         </div>
       </div>
@@ -208,7 +245,7 @@
                   </div>
                 </div>
               </div>
-              
+
               
               <div class="comment-area mt-5">
                     <div class="content_title">

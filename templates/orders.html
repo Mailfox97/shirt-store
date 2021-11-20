@@ -131,7 +131,9 @@ li {
                 {% if i.payment_method == "PAYPAL"%}
                 <td><span class="btn btn-sm btn-success disabled">Paypal</span></td>
                 {% elif i.payment_method == "COD"%}
-                <td><span class="badge badge-success">Cash On Delivery</span></td>                
+                <td><span class="badge badge-success">Cash On Delivery</span></td>
+                {% elif i.payment_method == "VNPAY"%}
+                <td><span class="badge badge-success">VNPay</span></td>
                 {% endif %}
               
     </tr>

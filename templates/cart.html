@@ -49,6 +49,7 @@ Cart
                 <th scope="col">Sale Price</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Total</th>
+                <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
@@ -75,15 +76,18 @@ Cart
                   <div class="d-flex align-items-center">
                     <button class="btn-product btn-product-up"> <i class="las la-minus"></i>
                     </button>
-                    <input class="form-product" type="number" name="form-product" value="{{i.quantity}}">
-                    {% comment %} <a href="{% url 'add_cart' i.slug i.size %}?return_url={{request.get_full_path}}" class="btn-product btn-product-down"> <i class="las la-plus"></i>
+                    <input class="form-product" type="number" min="1" name="form-product" value="{{i.quantity}}">
+                    {% comment %} <a href="" class="btn-product btn-product-down"> <i class="las la-plus"></i>
                     </a> {% endcomment %}
-                    <button href="" class="btn-product btn-product-down"> <i class="las la-plus"></i>
+                    <button class="btn-product btn-product-down"> <i class="las la-plus"></i>
                     </button>
                   </div>
                 </td>
                 <td> <span class="product-price text-primary font-w-6">${% multiply total_sale_price i.quantity %}</span>
-                  <a href="#" class="close-link"><i class="las la-times"></i></a>
+                  <a href="#" class="close-link"></a>
+                </td>
+                <td>
+                  <a href="#"><i class="fa fa-trash"></i></a>
                 </td>
               </tr>    
               {% endfor %}
