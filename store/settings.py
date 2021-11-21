@@ -38,11 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'shirts',
     'crispy_forms',
     'widget_tweaks',
     'paypal.standard.ipn',
     'django_social_share',
+    'django.contrib.sitemaps',
+    'robots',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
@@ -57,6 +60,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'store.urls'
+SITE_ID = 1
 # SESSION_COOKIE_SAMESITE = 'None'
 
 TEMPLATES = [

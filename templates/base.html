@@ -23,6 +23,7 @@
 <link href="{% static 'css/theme-plugin.css' %}" rel="stylesheet" />
 <link href="{% static 'css/theme.min.css' %}" rel="stylesheet" />
 <link href="{% static 'css/custom.css' %}" rel="stylesheet" />
+<link rel="icon"href="{% static 'favicon.ico' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <!-- inject css end -->
@@ -30,6 +31,23 @@
 {% block style %}
 {% endblock style %}
 </style>
+<script type="application/ld+json">
+  {
+    "@context": "http://hcmuecommerce.pythonanywhere.com/",
+    "@type": "Fashion",
+    "name": "HCMUE Ecommerce",
+    "description": "A fashion store"
+  }
+  </script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y34PRH24WQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Y34PRH24WQ');
+</script>
 </head>
 
 <body>
@@ -41,7 +59,7 @@
   <!-- preloader start -->
   
   <div id="ht-preloader">
-    <div class="loader clear-loader"> <img class="img-fluid" src="sta images/loader.gif" alt=""> </div>
+    <div class="loader clear-loader"> <img class="img-fluid" src="sta images/loader.gif" alt="preloader"> </div>
   </div>
   
   <!-- preloader end --> 

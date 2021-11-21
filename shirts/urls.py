@@ -37,7 +37,7 @@ urlpatterns = [
     # path('cart/<int:id>', views.remove_from_cart, name='remove_from_cart'),
     
     #product detail
-    path('product/<slug:slug>/', views.product_detail, name='product_detail'),
+    path('products/<slug:slug>/', views.product_detail, name='product_detail'),
 
     #User Login/Signup 
     path('usersignup/', views.signup, name='signup'),

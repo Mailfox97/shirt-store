@@ -11,6 +11,7 @@
 <meta charset="utf-8">
 <meta name="keywords" content="hcmue, ecommerce" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="a fashion shop with a lot of beautiful things sale everymonth every weekend" />
 {% endblock extra_meta_tag %}
 {% block title %}
 {{details.name|title}}
@@ -58,16 +59,16 @@
       <div class="col-lg-6 col-12">
         <ul id="imageGallery">
           <li data-thumb="{{details.image1.url}}" data-src="{{details.image1.url}}">
-            <img class="img-fluid w-100" src="{{details.image1.url}}" alt="" />
+            <img class="img-fluid w-100" src="{{details.image1.url}}" alt="an image" />
           </li>
           <li data-thumb="{{details.image2.url}}" data-src="{{details.image2.url}}">
-            <img class="img-fluid w-100" src="{{details.image2.url}}" alt="" />
+            <img class="img-fluid w-100" src="{{details.image2.url}}" alt="an image" />
           </li>
           <li data-thumb="{{details.image3.url}}" data-src="{{details.image3.url}}">
-            <img class="img-fluid w-100" src="{{details.image3.url}}" alt="" />
+            <img class="img-fluid w-100" src="{{details.image3.url}}" alt="an image" />
           </li>
           <li data-thumb="{{details.image4.url}}" data-src="{{details.image4.url}}">
-            <img class="img-fluid w-100" src="{{details.image4.url}}" alt="" />
+            <img class="img-fluid w-100" src="{{details.image4.url}}" alt="an image" />
           </li>
 
         </ul>
@@ -88,7 +89,7 @@
           <ul class="list-unstyled my-3">
             <li>
               <div class="fb-share-button" data-href="https://hcmuecommerce.pythonanywhere.com{{ request.get_full_path }}" data-layout="button" data-size="small">
-                  <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Chia sẻ</a>
+                  <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share this</a>
               </div>
             </li>
               {% if details.discount > 0 %}
