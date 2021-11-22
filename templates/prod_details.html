@@ -14,10 +14,16 @@
 <meta name="description" content="a fashion shop with a lot of beautiful things sale everymonth every weekend
 a fashion shop with a lot of beautiful things sale everymonth every weekend  a fashion shop with a lot of beautiful things sale everymonth every weekend
 a fashion shop with a lot of beautiful things sale  " />
+<meta name="twitter:card" content="detail" />
 {% endblock extra_meta_tag %}
+
 {% block title %}
 {{details.name|title}}
 {% endblock title %}
+
+{% block canonical_url %}
+https://hcmuecommerce.pythonanywhere.com{{ request.get_full_path }}
+{% endblock canonical_url%}
 
 
 
@@ -80,13 +86,13 @@ a fashion shop with a lot of beautiful things sale  " />
 
 
       <div class="col-lg-6 col-12 mt-5 mt-lg-0">
-        <div class="product-details">
-          <h1 class="h4 mb-0 font-w-6">{{details.name|title}}</h1>
+        <div itemscope class="product-details">
+          <h2 itemprop="name" class="h4 mb-0 font-w-6">{{details.name|title}}</h2>
           <div class="star-rating mb-4"><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i>
           {% if sell_price == price %}
-          </div> <span class="product-price h5 text-pink">${{sell_price}}</span>
+          </div> <span class="product-price h4 text-pink">${{sell_price}}</span>
           {% else %}
-          </div> <span class="product-price h5 text-pink">${{sell_price}} <del class="text-muted h6">${{price}}</del></span>
+          </div> <span class="product-price h4 text-pink">${{sell_price}} <del class="text-muted h6">${{price}}</del></span>
           {% endif %}
           <ul class="list-unstyled my-3">
             <li>
@@ -105,7 +111,7 @@ a fashion shop with a lot of beautiful things sale  " />
             </li>
 
           </ul>
-          <p class="mb-4 desc">{{details.desc}}</p>
+          <p itemprop="description" class="mb-4 desc">{{details.desc}}</p>
           <div class="d-sm-flex align-items-center mb-5">
             <div class="d-flex align-items-center mr-sm-4">
               {% for size in details.sizevariant_set.all %}
@@ -252,7 +258,7 @@ a fashion shop with a lot of beautiful things sale  " />
               
               <div class="comment-area mt-5">
                     <div class="content_title">
-                        <h4>Comments</h4>
+                        <h3>Comments</h3>
                     </div>
                     <ul class="list_none comment_list">
                         <li class="comment_info">

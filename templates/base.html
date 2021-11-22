@@ -10,10 +10,13 @@
 <!-- extra meta tag -->
 {% block extra_meta_tag %}
   {% endblock extra_meta_tag %}
+
 <!-- Title -->
 <title>{% block title %}
 {% endblock title %}</title>
 
+<!-- canonical link -->
+<link rel="canonical" href="{% block canonical_url %}{% endblock canonical_url %}">
 
 <!-- inject css start -->
 

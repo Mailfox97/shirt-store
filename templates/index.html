@@ -12,7 +12,7 @@ a fashion shop with a lot of beautiful things sale  " />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="keywords" content="hcmue, ecommerce" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+<meta name="twitter:card" content="summary" />
 <!-- Title -->
 <title>Ecommerce HCMUE</title>
 
@@ -215,7 +215,7 @@ a fashion shop with a lot of beautiful things sale  " />
                         <div class="sale-label">{{i.discount}}%</div>
                         {% else %}
                         {% endif %}
-                        <a class="card-img-hover d-block" href="{% url 'product_detail' i.slug %}"> <img class="card-img-back" src="{{i.image1.url}}" alt="..."> <img class="card-img-front" src="{{i.image2.url}}" alt="..."> </a>
+                        <a class="card-img-hover d-block" href="{% url 'product_detail' i.slug %}" rel="canonical"> <img class="card-img-back" src="{{i.image1.url}}" alt="..."> <img class="card-img-front" src="{{i.image2.url}}" alt="..."> </a>
                         <div class="card-info">
                           <div class="card-body">
                           <div class="product_color_switch">
@@ -223,7 +223,7 @@ a fashion shop with a lot of beautiful things sale  " />
                            <span data-color="#ac4e10" style="background-color:#ac4e10" data-toggle="tooltip" data-placement="top" title="" data-original-title="Brown"></span>
                             <span data-color="#e8e7e5" style="background-color:#e8e7e5" data-toggle="tooltip" data-placement="top" title="" data-original-title="Grey"></span>
                                             </div>
-                            <div class="product-title font-w-5"><a class="link-title" href="{% url 'product_detail' i.slug %}">{{i.name|title}}</a> </div>
+                            <div class="product-title font-w-5"><a class="link-title" href="{% url 'product_detail' i.slug %}" rel="canonical">{{i.name|title}}</a> </div>
                             {% if i.discount > 0 %}
                             <div class="mt-1"> <span class="product-price text-pink"><del class="text-muted">${% prices i %}</del>${% discount i %}</span>
                               <div class="star-rating"><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i> </div>
