@@ -47,7 +47,7 @@ All Products
                         <div class="sale-label">{{i.discount}}%</div>
                         {% else %}
                         {% endif %}
-                        <a class="card-img-hover d-block" href="{% url 'product_detail' i.slug %}"> <img class="card-img-back" src="{{i.image1.url}}" alt="..."> <img class="card-img-front" src="{{i.image2.url}}" alt="..."> </a>
+                        <a class="card-img-hover d-block" href="{% url 'product_detail' i.slug %}"> <img class="card-img-back" src="{{i.image1.url}}" style=" max-width:256px; max-height:256px;" alt="..."> <img class="card-img-front" src="{{i.image2.url}}" style=" max-width:256px; max-height:256px;" alt="..."> </a>
                         <div class="card-info">
                           <div class="card-body">
                             <div class="product-title font-w-5"><a class="link-title" href="{% url 'product_detail' i.slug %}">{{i.name|title}}</a> </div>
