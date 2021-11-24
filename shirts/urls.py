@@ -8,7 +8,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     
     #Error handlers
-    # path('handler404/', views.handler404),
+    path('handler404/', views.handler404),
     path('handler500/', views.handler500),
 
 

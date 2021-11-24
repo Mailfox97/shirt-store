@@ -14,25 +14,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.sitemaps import GenericSitemap
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 from django.views.generic import RedirectView
-
-from shirts.sitemaps import TshirtSitemap
-
+from shirts.sitemaps import StaticViewSitemap
 sitemaps = {
-    'tshirt': TshirtSitemap()
+    'static': StaticViewSitemap
 }
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('shirts.urls')),
     path('paypal/',include('paypal.standard.ipn.urls')),
-    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
-                       name='django.contrib.sitemaps.views.sitemap'),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),
     path("robots.txt", include('robots.urls')),  #add the robots.txt file
     path(
         "favicon.ico",

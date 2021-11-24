@@ -1,8 +1,8 @@
 from django.contrib.sitemaps import Sitemap
-from shirts.models import Tshirt
+from django.shortcuts import reverse
 
-class TshirtSitemap(Sitemap):
-    changefreq = 'weekly'
-    priority = 0.5
-    # def items(self):
-    #     return Tshirt.objects.all()
+class StaticViewSitemap(Sitemap):
+    def items(self):
+        return ['home', 'contact', 'orders', 'products', 'checkout', 'cart_detail', 'profile']
+    def location(self, item):
+        return reverse(item)
