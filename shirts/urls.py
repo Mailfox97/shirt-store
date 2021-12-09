@@ -50,6 +50,7 @@ urlpatterns = [
     # path('process_payment/', views.process_payment, name='process_payment'),
     # path('payment-done/', views.payment_done, name='payment_done'),
     path('payment-failed/', views.payment_failed, name='payment_failed'),
+    path('payment-result/', views.payment_result, name='payment_result')
 
 
 

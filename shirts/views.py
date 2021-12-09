@@ -385,31 +385,29 @@ def checkout(request):
 
             else:
                 if payment_method == 'VNPAY':
-                    if True:
-                        ipaddr = get_client_ip(request)
-                        # Build URL Payment
-                        vnp = vnpay()
-                        vnp.requestData['vnp_Version'] = '2.1.0'
-                        vnp.requestData['vnp_Command'] = 'pay'
-                        vnp.requestData['vnp_TmnCode'] = 'XBQV9IFW'
-                        vnp.requestData['vnp_Amount'] = 100 * 100000
-                        vnp.requestData['vnp_CurrCode'] = 'VND'
-                        vnp.requestData['vnp_TxnRef'] =  orders.id
-                        vnp.requestData['vnp_OrderInfo'] = 'Thanh toan don hang o HCMUE Ecomerce'
-                        vnp.requestData['vnp_OrderType'] = 'abc'
-                        # Check language, default: vn
-                        if True:
-                            vnp.requestData['vnp_Locale'] = 'vn'
-                        else:
-                            vnp.requestData['vnp_Locale'] = 'vn'
-                        vnp.requestData['vnp_CreateDate'] = datetime.now().strftime('%Y%m%d%H%M%S')  # 20150410063022
-                        vnp.requestData['vnp_IpAddr'] = ipaddr
-                        vnp.requestData['vnp_ReturnUrl'] = 'http://127.0.0.1:8000/orders/'
-                        vnpay_payment_url = vnp.get_payment_url('https://sandbox.vnpayment.vn/paymentv2/vpcpay.html', 'WVLQMDWIHYIWUMHVQEGOJKOXEWHXQGZH')
-                        print(vnpay_payment_url)
-                        return redirect(vnpay_payment_url)
-                    else:
-                        return render(request, 'payment_failed.html')
+                    ipaddr = get_client_ip(request)
+                    # Build URL Payment
+                    vnp = vnpay()
+                    vnp.requestData['vnp_Version'] = '2.1.0'
+                    vnp.requestData['vnp_Command'] = 'pay'
+                    vnp.requestData['vnp_TmnCode'] = 'XBQV9IFW'
+                    vnp.requestData['vnp_Amount'] = 2200000 * orders.total
+                    vnp.requestData['vnp_CurrCode'] = 'VND'
+                    vnp.requestData['vnp_TxnRef'] =  orders.id
+                    vnp.requestData['vnp_OrderInfo'] = 'Thanh toan don hang o HCMUE Ecomerce'
+                    vnp.requestData['vnp_Locale'] = 'vn'
+                    vnp.requestData['vnp_CreateDate'] = datetime.now().strftime('%Y%m%d%H%M%S')  # 20150410063022
+                    vnp.requestData['vnp_IpAddr'] = ipaddr
+                    host = request.get_host()
+                    vnp.requestData['vnp_ReturnUrl'] = 'http://{}{}'.format(host,reverse('payment_result'))
+                    vnpay_payment_url = vnp.get_payment_url('https://sandbox.vnpayment.vn/paymentv2/vpcpay.html', 'WVLQMDWIHYIWUMHVQEGOJKOXEWHXQGZH')
+                    finalorders = orders
+                    finalorders.order_status = 'PENDING'
+                    finalorders.save()
+                    cart = []
+                    request.session['cart'] = cart
+                    Cart.objects.filter(user=user).delete()
+                    return redirect(vnpay_payment_url)
 
                 else:
                     finalorders = orders
@@ -426,6 +424,16 @@ def checkout(request):
 
 
 
+@csrf_exempt
+def payment_result(request):
+    inputData = request.GET
+    order_id = inputData['vnp_TxnRef']
+    vnp_ResponseCode = inputData['vnp_ResponseCode']
+    if vnp_ResponseCode == "00":
+        Order.objects.filter(id=order_id).update(order_status='PLACED')
+        return redirect('orders')
+    else:
+        return redirect('payment-failed')
 
 
 @csrf_exempt
