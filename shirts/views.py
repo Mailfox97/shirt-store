@@ -433,7 +433,7 @@ def payment_result(request):
         Order.objects.filter(id=order_id).update(order_status='PLACED')
         return redirect('orders')
     else:
-        return redirect('payment-failed')
+        return redirect('payment_failed')
 
 
 @csrf_exempt
