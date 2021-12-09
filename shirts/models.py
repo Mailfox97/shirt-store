@@ -105,6 +105,7 @@ class Order(models.Model):
     method = (
         ('COD', "Cod"),
         ('PAYPAL', "Paypal"),
+        ('VNPAY', "VNPAY")
     )
     order_status = models.CharField(max_length=15, choices=orderStatus)
     payment_method = models.CharField(max_length=15, choices=method)
